@@ -1,0 +1,44 @@
+{
+  "id": "2049078",
+  "name": "pro1",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "521969",
+      "name": "学院",
+      "font_class": "xueyuan",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "3930502",
+      "name": "老师",
+      "font_class": "laoshi",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "4933433",
+      "name": "学生",
+      "font_class": "xuesheng",
+      "unicode": "e766",
+      "unicode_decimal": 59238
+    },
+    {
+      "icon_id": "6560965",
+      "name": "课程",
+      "font_class": "kecheng",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "10527624",
+      "name": "选课",
+      "font_class": "xuanke",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    }
+  ]
+}

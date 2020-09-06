@@ -19,23 +19,23 @@
       >
      
       <el-menu-item index="/student">
-        <i class="el-icon-menu"></i>
+        <i class="iconfont icon-xuesheng"></i>
         <span slot="title">学生</span>
       </el-menu-item>
       <el-menu-item index="/teacher" >
-        <i class="el-icon-document"></i>
+        <i class="iconfont icon-laoshi"></i>
         <span slot="title">老师</span>
       </el-menu-item>
-      <el-menu-item index="/course">
-        <i class="el-icon-setting"></i>
+      <el-menu-item index="/department">
+        <i class="iconfont icon-xueyuan"></i>
         <span slot="title">学院</span>
       </el-menu-item>
       <el-menu-item index="/course">
-        <i class="el-icon-setting"></i>
+        <i class="iconfont icon-kecheng"></i>
         <span slot="title">选课信息</span>
       </el-menu-item>
-      <el-menu-item index="/course">
-        <i class="el-icon-setting"></i>
+      <el-menu-item index="/selectCourse">
+        <i class="iconfont icon-xuanke"></i>
         <span slot="title">选课</span>
       </el-menu-item>
     </el-menu>
@@ -85,5 +85,9 @@ export default {
 }
 .el-header{
     background-color: #373d41;
+}
+.iconfont{
+  font-size: 20px;
+  margin-right: 5px;
 }
 </style>

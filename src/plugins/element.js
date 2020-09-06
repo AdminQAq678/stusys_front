@@ -11,7 +11,12 @@ import {
  Menu,
  Submenu,
  MenuItem,
- Card
+ Card,
+ Row,
+ Dialog,
+ Form,
+ FormItem,
+ Input
 } from 'element-ui'
 
 Vue.use(Button)
@@ -26,3 +31,8 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(Card)
+Vue.use(Dialog)
+Vue.use(Row)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
