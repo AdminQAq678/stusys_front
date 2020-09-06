@@ -101,10 +101,12 @@
         console.log(res)
         this.tableData=res;
         },
+        //显示添加学生信息对话框
         ShowAddStuDialog:function(){
           this.addStuDialogVisible=true;
           
         },
+        //发送学生信息到服务器
         addStu:async function(){
           console.log(this.form)
           let tem=this.form;
