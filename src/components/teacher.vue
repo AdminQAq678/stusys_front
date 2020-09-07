@@ -54,7 +54,7 @@
       label="操作">
       <template slot-scope="scope">
       <el-button size="mini" class="el-icon-edit" type="primary">编辑</el-button>
-          <el-button size="mini" class="el-icon-delete" type="danger">删除</el-button>
+          <el-button size="mini" class="el-icon-delete" type="danger" @click="delTea(scope)">删除</el-button>
        
       </template>
     </el-table-column>
@@ -70,7 +70,7 @@
  >
 <el-form ref="form" :model="form" label-width="120px">
   <el-form-item  required label="教工号">
-    <el-input  v-model="form.sno"></el-input>
+    <el-input  v-model="form.tno"></el-input>
   </el-form-item>
    <el-form-item required label="姓名">
     <el-input v-model="form.tname"></el-input>
@@ -94,7 +94,7 @@
     <el-input v-model="form.cno2"></el-input>
   </el-form-item>
   <el-form-item label="主讲课程三">
-    <el-input v-model="form.cno2"></el-input>
+    <el-input v-model="form.cno3"></el-input>
   </el-form-item>
 
 </el-form>
@@ -157,6 +157,40 @@
           .catch((err)=>{
             console.log(err)
           })
+        },
+         delTea:function(scope){
+
+          console.log('scope',scope.row)
+           this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          console.log(scope.row)
+          this.$http.delete('teacher/'+scope.row.tno).then((Response)=>{
+                if(Response.data){
+                  
+                  this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+              });
+              this.getAllTea();
+            }
+            else{
+              this.$message({
+                  type: 'error',
+                  message: '删除失败!'
+              });
+            }
+          });
+
+          
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
         }
       
     }

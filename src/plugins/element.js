@@ -16,9 +16,13 @@ import {
  Dialog,
  Form,
  FormItem,
- Input
+ Input,
+ Message,
+ MessageBox
 } from 'element-ui'
 
+Vue.prototype.$message=Message
+Vue.prototype.$confirm=MessageBox.confirm
 Vue.use(Button)
 Vue.use(Table)
 Vue.use(TableColumn)

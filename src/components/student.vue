@@ -2,7 +2,7 @@
 <div>
     <el-card>
         <el-row>
-            <el-button @click="ShowAddStuDialog" type="primary">添加学生信息</el-button>
+            <el-button @click="ShowAddStuDialog" type="primary">添加学生信息 </el-button>
         </el-row>
 
         <el-table
@@ -36,7 +36,7 @@
       label="操作">
       <template slot-scope="scope">
           <el-button size="mini" class="el-icon-edit" type="primary">编辑</el-button>
-          <el-button size="mini" class="el-icon-delete" type="danger">删除</el-button>
+          <el-button size="mini" class="el-icon-delete" type="danger" @click="delStu(scope)">删除</el-button>
         </template>
     </el-table-column>
   </el-table>
@@ -122,6 +122,38 @@
           .catch((err)=>{
             console.log(err)
           })
+        },
+        delStu:function(scope){
+
+          console.log('scope',scope.row)
+           this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          
+          this.$http.delete('student/'+scope.row.sno,).then((Response)=>{
+                if(Response.data){
+                  this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+              });
+            }
+            else{
+              this.$message({
+                  type: 'error',
+                  message: '删除失败!'
+              });
+            }
+          });
+
+          
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
         }
         
       
