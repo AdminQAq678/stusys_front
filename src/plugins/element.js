@@ -18,7 +18,10 @@ import {
  FormItem,
  Input,
  Message,
- MessageBox
+ MessageBox,
+ Radio,
+ Pagination
+ 
 } from 'element-ui'
 
 Vue.prototype.$message=Message
@@ -40,3 +43,5 @@ Vue.use(Row)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.use(Radio)
+Vue.use(Pagination)

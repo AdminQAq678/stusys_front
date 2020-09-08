@@ -40,6 +40,15 @@
         </template>
     </el-table-column>
   </el-table>
+  <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[1, 3, 6, 10]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalCount">
+    </el-pagination>
     </el-card>
 
     <!-- 添加学生信息对话框 -->
@@ -59,7 +68,9 @@
     <el-input v-model="form.sage"></el-input>
   </el-form-item>
    <el-form-item label="性别">
-    <el-input v-model="form.ssex"></el-input>
+
+     <el-radio v-model="form.ssex" label="男">男</el-radio>
+  <el-radio v-model="form.ssex" label="女">女</el-radio>
   </el-form-item>
    <el-form-item label="系别">
     <el-input v-model="form.sdept"></el-input>
@@ -86,19 +97,42 @@
           sno:'',
           sname:'',
           sage:'',
-          ssex:'',
+          ssex:'男',
           sdept:'',
-        }
+        },
+        stuList:[],
+        currentPage:1,
+        pageSize:10,
+        totalCount:0
       }
     },
     mounted:function(){
-        this.getAllStu();
+        this.getStuList();
     },
     methods:{
+
+       handleSizeChange(val) {
+         this.pageSize=val;
+          this.getStuList();
+       
+       
+      },
+      async handleCurrentChange(val) {
+        this.currentPage=val;
+       this.getStuList();
+        console.log(`当前页: ${val}`);
+      },
+
+      getStuList:async function(){
+         const {data:res}= await this.$http.get(`findStudentByCon?currentPage=${this.currentPage}&pageSize=${this.pageSize}`);
+        // console.log('查询到的数据',res)
+        this.tableData=res.data;
+        this.totalCount=res.totalCount;
+      },
          //解构重新命名
         async getAllStu(){
         const {data:res}= await this.$http.get('findAllStu');
-        console.log(res)
+        // console.log(res)
         this.tableData=res;
         },
         //显示添加学生信息对话框
@@ -116,7 +150,7 @@
           
           ).then((Response)=>{
             console.log(Response.data);
-            this.getAllStu();
+            this.getStuList();
             this.addStuDialogVisible=false;
           })
           .catch((err)=>{
@@ -138,6 +172,7 @@
                   type: 'success',
                   message: '删除成功!'
               });
+              this.getStuList();
             }
             else{
               this.$message({

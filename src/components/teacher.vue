@@ -79,7 +79,9 @@
     <el-input v-model="form.tage"></el-input>
   </el-form-item>
    <el-form-item required label="性别">
-    <el-input v-model="form.tsex"></el-input>
+      <el-radio v-model="form.tsex" label="男">男</el-radio>
+  <el-radio v-model="form.tsex" label="女">女</el-radio>
+  
   </el-form-item>
    <el-form-item required label="学历">
     <el-input v-model="form.teb"></el-input>
@@ -117,7 +119,7 @@
           tno:'',
           tname:'',
           tage:'',
-          tsex:'',
+          tsex:'男',
           tpt:'',
           teb:'',
           cno1:'',
