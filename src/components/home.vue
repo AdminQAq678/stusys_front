@@ -30,11 +30,11 @@
         <i class="iconfont icon-xueyuan"></i>
         <span slot="title">学院</span>
       </el-menu-item>
-      <el-menu-item index="/course">
+      <el-menu-item index="/sct">
         <i class="iconfont icon-kecheng"></i>
-        <span slot="title">选课信息</span>
+        <span slot="title">课程信息</span>
       </el-menu-item>
-      <el-menu-item index="/selectCourse">
+      <el-menu-item index="/course">
         <i class="iconfont icon-xuanke"></i>
         <span slot="title">选课</span>
       </el-menu-item>

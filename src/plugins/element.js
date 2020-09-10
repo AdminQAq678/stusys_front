@@ -20,8 +20,9 @@ import {
  Message,
  MessageBox,
  Radio,
- Pagination
- 
+ Pagination,
+ Select,
+ Option
 } from 'element-ui'
 
 Vue.prototype.$message=Message
@@ -45,3 +46,5 @@ Vue.use(FormItem)
 Vue.use(Input)
 Vue.use(Radio)
 Vue.use(Pagination)
+Vue.use(Select)
+Vue.use(Option)

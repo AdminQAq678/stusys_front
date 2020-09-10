@@ -59,6 +59,15 @@
       </template>
     </el-table-column>
   </el-table>
+  <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[1, 3, 6, 10]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalCount">
+    </el-pagination>
     </el-card>
 
 
@@ -125,13 +134,35 @@
           cno1:'',
           cno2:'',
           cno3:''
-        }
+        },
+         currentPage:1,
+        //每页显示的记录数
+        pageSize:10,
+        totalCount:0
+        //总记录数
       }
     },
     mounted:function(){
-        this.getAllTea();
+        this.getTeaList();
     },
     methods:{
+      
+       handleSizeChange(val) {
+         this.pageSize=val;
+        this.getTeaList();
+      },
+      async handleCurrentChange(val) {
+        this.currentPage=val;
+        this.getTeaList();
+      
+        console.log(`当前页: ${val}`);
+      },
+       getTeaList:async function(){
+         const {data:res}= await this.$http.get(`findTeacherByCon?currentPage=${this.currentPage}&pageSize=${this.pageSize}`);
+        // console.log('查询到的数据',res)
+        this.tableData=res.data;
+        this.totalCount=res.totalCount;
+      },
          //解构重新命名
         async getAllTea(){
         const {data:res}= await this.$http.get('findAllTea');
@@ -153,7 +184,7 @@
           
           ).then((Response)=>{
             console.log(Response.data);
-            this.getAllTea();
+            this.getTeaList();
             this.addTeaDialogVisible=false;
           })
           .catch((err)=>{

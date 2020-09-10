@@ -32,10 +32,10 @@
       label="系别">
     </el-table-column>
     <el-table-column
-      
+      width="180"
       label="操作">
       <template slot-scope="scope">
-          <el-button size="mini" class="el-icon-edit" type="primary">编辑</el-button>
+          <el-button size="mini" class="el-icon-edit" type="primary" @click="showEditStuDialog(scope)">编辑</el-button>
           <el-button size="mini" class="el-icon-delete" type="danger" @click="delStu(scope)">删除</el-button>
         </template>
     </el-table-column>
@@ -55,19 +55,20 @@
 <el-dialog
   title="添加学生信息"
   :visible.sync="addStuDialogVisible"
+   @close="addFormReset"
   width="50%"
  >
 <el-form ref="form" :model="form" label-width="80px">
-  <el-form-item label="学号">
-    <el-input v-model="form.sno"></el-input>
+  <el-form-item label="学号" prop="sno">
+    <el-input v-model="form.sno"  ></el-input>
   </el-form-item>
-   <el-form-item label="姓名">
-    <el-input v-model="form.sname"></el-input>
+   <el-form-item label="姓名" prop="sname">
+    <el-input v-model="form.sname" ></el-input>
   </el-form-item>
-   <el-form-item label="年龄">
-    <el-input v-model="form.sage"></el-input>
+   <el-form-item label="年龄" prop="sage">
+    <el-input v-model="form.sage" ></el-input>
   </el-form-item>
-   <el-form-item label="性别">
+   <el-form-item label="性别" prop="ssex">
 
      <el-radio v-model="form.ssex" label="男">男</el-radio>
   <el-radio v-model="form.ssex" label="女">女</el-radio>
@@ -81,6 +82,48 @@
     <el-button type="primary" @click="addStu">确 定</el-button>
   </span>
 </el-dialog>
+
+    <!-- 编辑学生信息对话框 -->
+<el-dialog
+  title="修改学生信息"
+  :visible.sync="editStuDialogVisible"
+  width="50%"
+ >
+<el-form ref="editform" :model="editform" label-width="80px">
+  <el-form-item label="学号">
+    <el-input v-model="editform.sno"></el-input>
+  </el-form-item>
+   <el-form-item label="姓名">
+    <el-input v-model="editform.sname"></el-input>
+  </el-form-item>
+   <el-form-item label="年龄">
+    <el-input v-model="editform.sage"></el-input>
+  </el-form-item>
+   <el-form-item label="性别">
+
+     <el-radio v-model="editform.ssex" label="男">男</el-radio>
+  <el-radio v-model="editform.ssex" label="女">女</el-radio>
+  </el-form-item>
+   <el-form-item label="系别">
+       <el-select v-model="editform.sdept" placeholder="请选择">
+        <el-option
+          v-for="item in depList"
+          :key="item.dno"
+          :label="item.dname"
+          :value="item.dname">
+        </el-option>
+      </el-select>
+  
+   
+  </el-form-item>
+  
+</el-form>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="editStuDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="editStu">确 定</el-button>
+  </span>
+</el-dialog>
+
 </div>
   
 </template>
@@ -89,10 +132,13 @@
   export default {
     data() {
       return {
-
+        //学生信息数据
         tableData: [],
         //添加学生对话框
         addStuDialogVisible:false,
+        //编辑学生对话框  
+        editStuDialogVisible:false,
+        //添加学生对话框数据
         form:{
           sno:'',
           sname:'',
@@ -100,14 +146,28 @@
           ssex:'男',
           sdept:'',
         },
+        //编辑学生信息表单
+        editform:{
+          sno:'',
+          sname:'',
+          sage:'',
+          ssex:'',
+          sdept:'',
+        },
+        depList:[],
+        //学生信息
         stuList:[],
+        //当前页码
         currentPage:1,
+        //每页显示的记录数
         pageSize:10,
         totalCount:0
+        //总记录数
       }
     },
-    mounted:function(){
+    created:function(){
         this.getStuList();
+        this.getAllDep();
     },
     methods:{
 
@@ -129,6 +189,13 @@
         this.tableData=res.data;
         this.totalCount=res.totalCount;
       },
+        async getAllDep(){
+        const {data:res}= await this.$http.get('findAllDep');
+       
+        this.depList=res;
+        console.log(res)
+        },
+    
          //解构重新命名
         async getAllStu(){
         const {data:res}= await this.$http.get('findAllStu');
@@ -152,6 +219,7 @@
             console.log(Response.data);
             this.getStuList();
             this.addStuDialogVisible=false;
+            this.$refs.form.resetFields();
           })
           .catch((err)=>{
             console.log(err)
@@ -189,7 +257,37 @@
             message: '已取消删除'
           });          
         });
+        },
+
+        showEditStuDialog:function(scope){
+          this.editStuDialogVisible=true;
+          this.editform=scope.row;
+          console.log(this.editform)
+        },
+        //发送编辑后的学生信息到后台
+        editStu: async function(){
+          
+          this.editStuDialogVisible=false;
+          const {data:res}= await this.$http.put(`student/${this.editform.sno}`,this.editform);
+         console.log(typeof res)
+         console.log( res)
+         if(res!=null&&res!=""){
+           this.$message({
+                  type: 'success',
+                  message: '更新学生信息成功!'
+              });
+         }else{
+           this.$message({
+                  type: 'error',
+                  message: '更新学生信息失败!'
+              });
+              this.getStuList();
+         }
+        },
+        addFormReset:function(){
+          this.$refs.form.resetFields();
         }
+
         
       
     }
