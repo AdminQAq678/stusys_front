@@ -6,7 +6,9 @@ import teacher from '../components/teacher.vue'
 import department from '../components/department.vue'
 import sct from '../components/sct.vue'
 import course from '../components/course.vue'
+import selectCourse from '../components/selectCourse.vue'
 import login from '../components/login.vue'
+
 Vue.use(VueRouter)
 
   const routes = [
@@ -40,6 +42,11 @@ Vue.use(VueRouter)
         path:'/course',
         name:'course',
         component:course
+      },
+      {
+        path:'/selectCourse',
+        name:'selectCourse',
+        component:selectCourse
       }
     ],
     redirect:'/student'

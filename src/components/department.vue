@@ -41,15 +41,16 @@
   title="添加教师信息"
   :visible.sync="addDepDialogVisible"
   width="50%"
+  @close="addFormReset"
  >
 <el-form ref="form" :model="form" label-width="120px">
-  <el-form-item  required label="系编号">
+  <el-form-item  required label="系编号" prop="dno">
     <el-input  v-model="form.dno"></el-input>
   </el-form-item>
-   <el-form-item required label="系名">
+   <el-form-item required label="系名" prop="dname">
     <el-input v-model="form.dname"></el-input>
   </el-form-item>
-   <el-form-item label="系主任">
+   <el-form-item label="系主任" prop="dmanagerno">
     <el-input v-model="form.dmanagerno"></el-input>
   </el-form-item>
   
@@ -142,6 +143,10 @@
             message: '已取消删除'
           });          
         });
+        },
+        
+        addFormReset:function(){
+          this.$refs.form.resetFields();
         }
       
     }

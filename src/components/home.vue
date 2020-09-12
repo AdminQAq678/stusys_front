@@ -32,12 +32,19 @@
       </el-menu-item>
       <el-menu-item index="/sct">
         <i class="iconfont icon-kecheng"></i>
-        <span slot="title">课程信息</span>
+        <span slot="title">我的课程</span>
       </el-menu-item>
       <el-menu-item index="/course">
         <i class="iconfont icon-xuanke"></i>
+        <span slot="title">课程信息</span>
+      </el-menu-item>
+      <el-menu-item index="/selectCourse">
+        <i class="iconfont icon-xuanke"></i>
         <span slot="title">选课</span>
       </el-menu-item>
+     
+      
+
     </el-menu>
 
 
@@ -77,6 +84,7 @@ export default {
 }
 .head span:last-child{
     display: inline-block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 70%;
     line-height: 50px;
     height:50px;
