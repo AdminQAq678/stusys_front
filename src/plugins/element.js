@@ -22,7 +22,8 @@ import {
  Radio,
  Pagination,
  Select,
- Option
+ Option,
+ Upload
 } from 'element-ui'
 
 Vue.prototype.$message=Message
@@ -48,3 +49,7 @@ Vue.use(Radio)
 Vue.use(Pagination)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Upload)
+
+
+

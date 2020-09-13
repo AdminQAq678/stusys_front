@@ -3,6 +3,7 @@
     <el-card>
         <el-row>
             <el-button @click="ShowAddStuDialog" type="primary">添加学生信息 </el-button>
+            <el-button @click="showAddStuByFileDialog" type="warning">导入学生信息 </el-button>
         </el-row>
 
         <el-table
@@ -124,6 +125,28 @@
   </span>
 </el-dialog>
 
+
+
+<!-- 导入学生信息对话框 -->
+<el-dialog
+  title="导入学生信息"
+  :visible.sync="addStuByFileuDialogVisible"
+  width="50%"
+ >
+
+ <el-upload
+ ref="upload"
+  class="upload-demo"
+  drag
+  action="http://localhost:3030/addStuByFile"
+  multiple>
+  <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+  <div class="el-upload__tip" slot="tip">只能上传txt文件，拖拽到此立即上传</div>
+</el-upload>
+
+</el-dialog>
+
 </div>
   
 </template>
@@ -138,6 +161,8 @@
         addStuDialogVisible:false,
         //编辑学生对话框  
         editStuDialogVisible:false,
+        //文件导入学生信息对话框
+        addStuByFileuDialogVisible:false,
         //添加学生对话框数据
         form:{
           sno:'',
@@ -286,7 +311,21 @@
         },
         addFormReset:function(){
           this.$refs.form.resetFields();
-        }
+        },
+        //显示文件导入学生信息对话框
+        showAddStuByFileDialog:function(){
+          this.addStuByFileuDialogVisible=true;
+        },
+
+        addStuByFile:function(){
+          
+        },
+        //上传文件
+        submitUpload() {
+        this.$refs.upload.submit();
+        },
+
+        
 
         
       
