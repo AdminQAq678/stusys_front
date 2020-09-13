@@ -4,6 +4,8 @@
         <el-row>
             <el-button @click="ShowAddStuDialog" type="primary">添加学生信息 </el-button>
             <el-button @click="showAddStuByFileDialog" type="warning">导入学生信息 </el-button>
+            <el-button @click="downloadStu" type="success">下载学生信息 </el-button>
+           
         </el-row>
 
         <el-table
@@ -324,6 +326,11 @@
         submitUpload() {
         this.$refs.upload.submit();
         },
+        downloadStu:function(){
+          alert("ok")
+          window.location.href="http://localhost:3030/download"
+        }
+        
 
         
 
