@@ -8,7 +8,7 @@ import sct from '../components/sct.vue'
 import course from '../components/course.vue'
 import selectCourse from '../components/selectCourse.vue'
 import login from '../components/login.vue'
-
+import teascourses from '../components/teascourses.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -48,6 +48,14 @@ Vue.use(VueRouter)
         name:'selectCourse',
         component:selectCourse
       }
+      ,
+      {
+        path:'/teascourses',
+        name:'teascourses',
+        component:teascourses
+      }
+      
+      
     ],
     redirect:'/student'
   },

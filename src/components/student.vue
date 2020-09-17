@@ -1,11 +1,33 @@
 <template>
 <div>
     <el-card>
-        <el-row>
+        <el-row >
+          <el-col :span="12">
             <el-button @click="ShowAddStuDialog" type="primary">添加学生信息 </el-button>
+          
+         
             <el-button @click="showAddStuByFileDialog" type="warning">导入学生信息 </el-button>
+      
+        
             <el-button @click="downloadStu" type="success">下载学生信息 </el-button>
+            </el-col>
+         
+            <el-col :span="4" :offset="6">
+          <el-input
+
            
+            placeholder="可通过学号、姓名、系别进行搜索"
+            prefix-icon="el-icon-search"
+            v-model="searchInfo">
+          </el-input>
+          
+            </el-col >
+            <el-col :span="2">
+            <el-button>
+            搜索
+          </el-button>
+            </el-col>
+            
         </el-row>
 
         <el-table
@@ -70,6 +92,9 @@
   </el-form-item>
    <el-form-item label="年龄" prop="sage">
     <el-input v-model="form.sage" ></el-input>
+  </el-form-item>
+   <el-form-item label="密码" prop="passwd">
+    <el-input v-model="form.passwd" ></el-input>
   </el-form-item>
    <el-form-item label="性别" prop="ssex">
 
@@ -140,7 +165,7 @@
  ref="upload"
   class="upload-demo"
   drag
-  action="http://localhost:3030/addStuByFile"
+  action="http://www.wocnz.club:80/addStuByFile"
   multiple>
   <i class="el-icon-upload"></i>
   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -172,6 +197,7 @@
           sage:'',
           ssex:'男',
           sdept:'',
+          passwd:''
         },
         //编辑学生信息表单
         editform:{
@@ -180,6 +206,7 @@
           sage:'',
           ssex:'',
           sdept:'',
+          passwd:''
         },
         depList:[],
         //学生信息
@@ -188,8 +215,10 @@
         currentPage:1,
         //每页显示的记录数
         pageSize:10,
-        totalCount:0
+        totalCount:0,
         //总记录数
+        searchInfo:''
+
       }
     },
     created:function(){
@@ -328,8 +357,14 @@
         },
         downloadStu:function(){
           alert("ok")
-          window.location.href="http://localhost:3030/download"
+          // window.location.href="http://www.wocnz.club:80/download"
+          window.location.href="http://localhost:80/download"
+        },
+        //根据学号或者姓名或者系别进行搜索
+        search:function(){
+          
         }
+
         
 
         

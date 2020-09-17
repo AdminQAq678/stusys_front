@@ -32,7 +32,7 @@
       </el-menu-item>
       <el-menu-item index="/sct">
         <i class="iconfont icon-kecheng"></i>
-        <span slot="title">我的课程</span>
+        <span slot="title">学生已选课程</span>
       </el-menu-item>
       <el-menu-item index="/course">
         <i class="iconfont icon-xuanke"></i>
@@ -40,7 +40,11 @@
       </el-menu-item>
       <el-menu-item index="/selectCourse">
         <i class="iconfont icon-xuanke"></i>
-        <span slot="title">选课</span>
+        <span slot="title">学生选课</span>
+      </el-menu-item>
+      <el-menu-item index="/teascourses">
+        <i class="iconfont icon-xuanke"></i>
+        <span slot="title">我的授课</span>
       </el-menu-item>
      
       
