@@ -49,15 +49,7 @@
       prop="grade"
       label="课程成绩">
     </el-table-column>
-    <el-table-column
-      width="180"
-      label="操作">
-      <template slot-scope="scope">
-          <el-button size="mini" class="el-icon-edit" type="primary">编辑</el-button>
-          <el-button size="mini" class="el-icon-delete" type="danger">删除</el-button>
-       
-      </template>
-    </el-table-column>
+ 
   </el-table>
     </el-card>
 
@@ -81,7 +73,9 @@
         const {data:res}= await this.$http.get('findAllClInfo');
         console.log(res)
         this.tableData=res;
-        }
+        },
+        
+      
       
     }
   }

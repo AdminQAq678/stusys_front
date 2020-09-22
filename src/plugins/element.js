@@ -23,7 +23,8 @@ import {
  Pagination,
  Select,
  Option,
- Upload
+ Upload,
+ Switch
 } from 'element-ui'
 
 Vue.prototype.$message=Message
@@ -50,6 +51,7 @@ Vue.use(Pagination)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Upload)
+Vue.use(Switch)
 
 
 
