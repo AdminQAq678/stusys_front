@@ -79,7 +79,7 @@
         }
       }
     },
-    mounted:function(){
+    created:function(){
         this.getAllDep();
     },
     methods:{

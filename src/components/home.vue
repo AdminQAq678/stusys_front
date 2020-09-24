@@ -5,7 +5,9 @@
         <div class="head">
             <span>wocnz</span>
             <span>学生选课管理系统</span>
+            <el-button @click="logout" size="medium" type="primary">登出</el-button>
         </div>
+        
         
         </el-header>
     <el-container>
@@ -67,11 +69,12 @@
 export default {
     data(){
       return {
-        router_index:''
+        router_index:'student'
       
       }
     },
     created(){
+      console.log(this.router_index,"router")
       this.router_index=window.sessionStorage.getItem("router_index")
     },
     methods:{
@@ -80,6 +83,10 @@ export default {
 				//保持高亮状态效果
 				window.sessionStorage.setItem("router_index",index);
       },
+      logout:function(){
+        window.sessionStorage.clear();
+        window.location.href="/"
+      }
      
     }
 }
@@ -99,13 +106,11 @@ export default {
     height:50px;
     font-size: 20px;
     font-weight: 800;
-    
-    
 }
 .head span{
     color: white;
 }
-.head span:last-child{
+.head span:nth-child(2){
     display: inline-block;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 70%;
@@ -114,6 +119,11 @@ export default {
     font-size: 35px;
     text-align: center;
 }
+.head .el-button{
+    position: relative;
+    right: 0;
+}
+
 .el-header{
     background-color: #373d41;
 }

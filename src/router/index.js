@@ -70,4 +70,17 @@ const router = new VueRouter({
   routes
 })
 
+//路由导航守卫
+router.beforeEach((to,from,next)=>{
+	//to 要访问的页面
+	//from 当前页面
+	// next 放行函数
+	//放行登录页面
+	if(to.path==='/login') return next();
+	//获取token
+	const tokenStr=window.sessionStorage.getItem("token");
+  if(!tokenStr)
+    return next('/login');
+	next();
+})
 export default router
