@@ -3,6 +3,10 @@
     <el-card>
         <el-row>
             <el-button type="primary" @click="ShowAddTeaDialog">添加教师信息</el-button>
+          <el-button  type="warning">导入教师信息 </el-button>
+
+            <el-button @click="downloadTea" type="success">下载教师信息 </el-button>
+        
         </el-row>
 
         <el-table
@@ -319,6 +323,11 @@
         },
         addFormReset:function(){
           this.$refs.form.resetFields();
+        },
+        downloadTea:function(){
+          
+          // window.location.href="http://www.wocnz.club:80/download"
+          window.location.href="http://localhost:80/downloadTea"
         }
       
     }

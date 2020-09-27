@@ -3,6 +3,10 @@
     <el-card>
         <el-row>
             <el-button @click="ShowAddCouDialog" type="primary">添加课程信息 </el-button>
+            <el-button  type="warning">导入课程信息 </el-button>
+
+            <el-button @click="downloadCou" type="success">下载课程信息 </el-button>
+        
         </el-row>
 
         <el-table
@@ -264,6 +268,11 @@
         },
         addFormReset:function(){
           this.$refs.form.resetFields();
+        },
+        downloadCou:function(){
+
+          // window.location.href="http://www.wocnz.club:80/downloadCou"
+          window.location.href="http://localhost:80/downloadCou"
         }
 
         
