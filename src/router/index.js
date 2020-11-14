@@ -9,6 +9,8 @@ import course from '../components/course.vue'
 import selectCourse from '../components/selectCourse.vue'
 import login from '../components/login.vue'
 import teascourses from '../components/teascourses.vue'
+import chgpasswd from '../components/chgpasswd.vue'
+import userinfo from '../components/userinfo.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -53,7 +55,17 @@ Vue.use(VueRouter)
         path:'/teascourses',
         name:'teascourses',
         component:teascourses
-      }
+      },
+      {
+        path:'/chgpasswd',
+        name:'chgpasswd',
+        component:chgpasswd
+      },
+      {
+        path:'/userinfo',
+        name:'userinfo',
+        component:userinfo
+      },
       
       
     ],
@@ -83,4 +95,7 @@ router.beforeEach((to,from,next)=>{
     return next('/login');
 	next();
 })
+
+
+
 export default router

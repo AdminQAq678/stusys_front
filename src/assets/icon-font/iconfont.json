@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1294081",
+      "name": "远程授课",
+      "font_class": "class",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "8499309",
+      "name": "课程",
+      "font_class": "_huabanfuben",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "521969",
       "name": "学院",
       "font_class": "xueyuan",

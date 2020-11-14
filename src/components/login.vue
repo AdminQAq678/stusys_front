@@ -155,13 +155,19 @@ export default {
         login:function(){
             console.log(this.username,this.password)
 				$.post("http://localhost/login",{userno:this.username,passwd:this.password},function(data,status){
-				alert("数据: " + data + "\n状态: " + status);
-				console.log(data)
+				// alert("数据: " + data + "\n状态: " + status);
+				// console.log(data)
+				// console.log(status)
 					const result=JSON.parse(data);
 					console.log(result)
-					if (result.status=="ok"){
+					if (result.status==200){
 						window.sessionStorage.setItem("token",result.token)
+						window.sessionStorage.setItem("uid",result.username)
 						window.location.href="/";
+					}else if(result.status==401){
+						alert("无该用户，请联系管理员注册!")
+					}else if(result.status==402){
+						alert("用户名或者密码输入错误，请重新输入!")
 					}
 
 			  });

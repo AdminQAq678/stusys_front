@@ -24,7 +24,10 @@ import {
  Select,
  Option,
  Upload,
- Switch
+ Switch,
+ Dropdown,
+ DropdownItem,
+ DropdownMenu
 } from 'element-ui'
 
 Vue.prototype.$message=Message
@@ -52,6 +55,8 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Upload)
 Vue.use(Switch)
-
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
 
 

@@ -2,7 +2,7 @@
 <div>
     <el-card>
         <el-row >
-          <el-col :span="12">
+          <el-col >
             <el-button @click="ShowAddStuDialog" type="primary">添加学生信息 </el-button>
           
          
@@ -10,30 +10,63 @@
       
         
             <el-button @click="downloadStu" type="success">下载学生信息 </el-button>
+            <el-button @click="delSelected" type="danger">删除选中 </el-button>
             </el-col>
          
-            <el-col :span="4" :offset="6">
+          
+            
+        </el-row>
+        <el-row>
+          <el-col :span="3">
           <el-input
-
-           
-            placeholder="可通过学号、姓名、系别进行搜索"
+            placeholder="学号"
             prefix-icon="el-icon-search"
-            v-model="searchInfo">
+            v-model="searchInfo.id">
           </el-input>
           
             </el-col >
+
+             <el-col :span="3">
+          <el-input
+            placeholder="姓名"
+            prefix-icon="el-icon-search"
+            v-model="searchInfo.name">
+          </el-input>
+          
+            </el-col >
+
+
+             <el-col :span="3">
+          <el-input
+            placeholder="系别"
+            prefix-icon="el-icon-search"
+            v-model="searchInfo.dep">
+          </el-input>
+          
+            </el-col >
+
+
             <el-col :span="2">
-            <el-button>
+            <el-button @click="getStuList">
             搜索
           </el-button>
             </el-col>
-            
         </el-row>
 
         <el-table
     :data="tableData"
     border
+    @selection-change="handleSelectionChange"
     style="width: 100%">
+
+    <el-table-column
+    type="selection"
+    
+    v-model="tableSection"
+    >
+
+
+    </el-table-column>
     <el-table-column
       prop="sno"
       label="学号"
@@ -115,6 +148,7 @@
 <el-dialog
   title="修改学生信息"
   :visible.sync="editStuDialogVisible"
+
   width="50%"
  >
 <el-form ref="editform" :model="editform" label-width="80px">
@@ -217,7 +251,13 @@
         pageSize:10,
         totalCount:0,
         //总记录数
-        searchInfo:''
+        searchInfo:{
+          id:'',
+          name:'',
+          dep:''
+        },
+
+        tableSection:[]
 
       }
     },
@@ -226,6 +266,16 @@
         this.getAllDep();
     },
     methods:{
+
+      delSelected:async function(){
+        console.log(this.tableSection)
+        const {data:res}= await this.$http.post("delStudentByList",this.tableSection)
+        alert(res);
+      },
+      handleSelectionChange:function(val){
+        this.tableSection=val;
+       
+      },
 
        handleSizeChange(val) {
          this.pageSize=val;
@@ -238,9 +288,9 @@
        this.getStuList();
         console.log(`当前页: ${val}`);
       },
-
+      //分页查询
       getStuList:async function(){
-         const {data:res}= await this.$http.get(`findStudentByCon?currentPage=${this.currentPage}&pageSize=${this.pageSize}`);
+         const {data:res}= await this.$http.get(`findStudentByCon?currentPage=${this.currentPage}&pageSize=${this.pageSize}&name=${this.searchInfo.name}&id=${this.searchInfo.id}&dep=${this.searchInfo.dep}`);
         // console.log('查询到的数据',res)
         this.tableData=res.data;
         this.totalCount=res.totalCount;
@@ -361,8 +411,13 @@
           window.location.href="http://localhost:80/download"
         },
         //根据学号或者姓名或者系别进行搜索
-        search:function(){
-          
+        search:async function(){
+          // this.$http.post("",this.searchInfo,(err,data)=>{
+          //   console.log(err,data)
+          // })
+          const {data:res}= await this.$http.post("stu/searchStu",this.searchInfo)
+          console.log(res);
+          this.tableData=res;
         }
 
         
