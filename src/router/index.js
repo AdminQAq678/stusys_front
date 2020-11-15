@@ -11,6 +11,7 @@ import login from '../components/login.vue'
 import teascourses from '../components/teascourses.vue'
 import chgpasswd from '../components/chgpasswd.vue'
 import userinfo from '../components/userinfo.vue'
+import index from '../components/index.vue'
 Vue.use(VueRouter)
 
   const routes = [
@@ -66,10 +67,14 @@ Vue.use(VueRouter)
         name:'userinfo',
         component:userinfo
       },
-      
+      {
+        path:'/index',
+        name:'index',
+        component:index
+      },
       
     ],
-    redirect:'/student'
+    redirect:'/index'
   },
       {
         path:'/login',

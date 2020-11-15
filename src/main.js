@@ -10,7 +10,7 @@ axios.defaults.baseURL="http://localhost:80";
 axios.interceptors.request.use(config=>{
 
   config.headers.token= window.sessionStorage.getItem("token");
-  console.log("token",config.headers.token);
+  //console.log("token",config.headers.token);
     return config
   })
 

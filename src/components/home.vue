@@ -5,7 +5,7 @@
         <div class="head">
             <span>wocnz</span>
             <span>学生选课管理系统</span>
-            <span id="welcomeMsg">你好！<b style="color:red">{{uid}}</b></span>
+            <span id="welcomeMsg">你好！<b style="color:red">{{userinfo.sname}}{{userinfo.tname}}</b></span>
                 <img  @mouseenter="hover=true"
                   @mouseleave="hover=false"
                   id="headimg" :src="imageUrl">
@@ -32,14 +32,12 @@
   
     <el-menu
       :default-active="router_index"
+      @change="setActiveIndex"
     :router="true"
      background-color="#545c64"
-   
-     
-     
       >
      
-       <el-menu-item   v-for="(item,index) in menuList " :key="item" :index="item" @click="setActiveIndex('/'+'student')" v-if="index%3==0">
+       <el-menu-item   v-for="(item,index) in menuList " :key="item" :index="item" @click="setActiveIndex(item)" v-if="index%3==0">
           <i :class="menuList[index+1]"></i>
         <span slot="title">{{menuList[index+2]}}</span>
       </el-menu-item>
@@ -97,23 +95,36 @@ export default {
         router_index:'student',
         uid:'',
         menuList:[],
-        imageUrl:''
+        imageUrl:'',
+        userinfo:{
+
+        }
       }
     },
 
-    created(){
+    async created(){
       // 获取用户名
       this.uid=window.sessionStorage.getItem("uid");
       //获得左侧菜单的显示内容
       this.getMenuList();
       this.imageUrl=`http://localhost/getHeadImage?uid=${this.uid}`
 
-      //console.log(this.router_index,"router")
+       const {data:res}= await this.$http.get(`getUserInfo?uid=${this.uid}`);
+       this.userinfo=JSON.parse(JSON.stringify(res));//将前端的数据解析成json数据格式
+       window.sessionStorage.setItem("userinfo",this.userinfo)
+
+      
       this.router_index=window.sessionStorage.getItem("router_index")
+      //刚登录还没有上次点击菜单项的记录
+      if(this.router_index==null){
+            this.router_index=this.menuList[0];
+      }
+      //console.log(this.router_index,"router")
     },
     methods:{
       setActiveIndex:function(index){
         this.router_index=index;
+       // console.log("激活的index",index)
 				//保持高亮状态效果
 				window.sessionStorage.setItem("router_index",index);
       },
@@ -122,16 +133,16 @@ export default {
         window.location.href="/"
       },
       goChgpasswdPage:function(){
-      this.$router.push("chgpasswd")
+        this.$router.push("chgpasswd")
       },
       goUserinfoPage:function(){
-      this.$router.push("userinfo")
+        this.$router.push("userinfo")
       },
       //获得菜单列表的显示
       getMenuList:async function(){
           
           const {data:res}= await this.$http.post(`getMenuList?uid=${this.uid}`)
-          console.log(res);
+          //console.log(res);
           this.menuList=res
       }
      

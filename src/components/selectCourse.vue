@@ -87,7 +87,8 @@
         
         this.sctData.cno=scope.row.cno;
         this.sctData.tno=scope.row.tno;
-        this.sctData.sno=234;
+        this.sctData.sno=window.sessionStorage.getItem("uid");
+      
         //添加选课信息到sct表
         const {data:res}=await this.$http.post('addToSct',this.sctData)
         if(res==false){
@@ -106,7 +107,7 @@
         
         this.sctData.cno=scope.row.cno;
         this.sctData.tno=scope.row.tno;
-        this.sctData.sno=234;
+        this.sctData.sno=window.sessionStorage.getItem("uid");
         //添加选课信息到sct表
         const {data:res}=await this.$http.post('delSct',this.sctData)
         if(res==false){

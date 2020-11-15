@@ -189,7 +189,7 @@
           this.addCouDialogVisible=true;
           
         },
-        //发送学生信息到服务器
+        //发送课程信息到服务器
         addCou:async function(){
           console.log(this.form)
           let tem=this.form;
