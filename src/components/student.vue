@@ -268,9 +268,28 @@
     methods:{
 
       delSelected:async function(){
+        if(this.tableSection.length==0){
+             this.$message({
+                  type: 'info',
+                  message: '请选择要删除的用户!'
+              });
+          return;
+        }
         console.log(this.tableSection)
         const {data:res}= await this.$http.post("delStudentByList",this.tableSection)
-        alert(res);
+        
+        if(res==true){
+          this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+              });
+        }else{
+           this.$message({
+                  type: 'error',
+                  message: '删除失败!'
+              });
+        }
+        this.getStuList();
       },
       handleSelectionChange:function(val){
         this.tableSection=val;
@@ -334,7 +353,7 @@
         delStu:function(scope){
 
           console.log('scope',scope.row)
-           this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+           this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
